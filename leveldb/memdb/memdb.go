@@ -27,14 +27,15 @@ const tMaxHeight = 12
 
 type dbIter struct {
 	util.BasicReleaser
-	p          *DB
+	p          *DB //测试git push
 	slice      *util.Range
-	node       int  //当前节点在DB的nodeData中的偏移
+	node       int //当前节点在DB的nodeData中的偏移
 	forward    bool
 	key, value []byte
 	err        error
 }
-//根据node的信息，填充当前的key和value
+
+// 根据node的信息，填充当前的key和value
 func (i *dbIter) fill(checkStart, checkLimit bool) bool {
 	if i.node != 0 {
 		n := i.p.nodeData[i.node]
@@ -206,7 +207,8 @@ func (p *DB) randHeight() (h int) {
 	}
 	return
 }
-//找到比输入key要大或相等的节点的位置信息，返回在nodeData中的偏移，和是否刚好相等
+
+// 找到比输入key要大或相等的节点的位置信息，返回在nodeData中的偏移，和是否刚好相等
 // Must hold RW-lock if prev == true, as it use shared prevNode slice.
 func (p *DB) findGE(key []byte, prev bool) (int, bool) {
 	node := 0
@@ -234,7 +236,8 @@ func (p *DB) findGE(key []byte, prev bool) (int, bool) {
 		}
 	}
 }
-//查找比key小的最大key的节点的位置信息，返回在nodeData中的偏移
+
+// 查找比key小的最大key的节点的位置信息，返回在nodeData中的偏移
 func (p *DB) findLT(key []byte) int {
 	node := 0
 	h := p.maxHeight - 1
@@ -252,7 +255,8 @@ func (p *DB) findLT(key []byte) int {
 	}
 	return node
 }
-//查找最后一个节点的位置信息，返回在nodeData中的偏移
+
+// 查找最后一个节点的位置信息，返回在nodeData中的偏移
 func (p *DB) findLast() int {
 	node := 0
 	h := p.maxHeight - 1
