@@ -39,7 +39,7 @@ type dbIter struct {
 func (i *dbIter) fill(checkStart, checkLimit bool) bool {
 	if i.node != 0 {
 		n := i.p.nodeData[i.node]
-		m := n + i.p.nodeData[i.node+nKey]
+		m := n + i.p.nodeData[i.node+nKey] //test goland
 		i.key = i.p.kvData[n:m]
 		if i.slice != nil {
 			switch {
